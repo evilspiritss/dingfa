@@ -1,0 +1,7 @@
+#app {
+  margin: 0;
+  padding: 0;
+}
+.animate-on-scroll {
+  transition: opacity 0.5s ease-out;
+}
