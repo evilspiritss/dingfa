@@ -5,3 +5,21 @@
 .animate-on-scroll {
   transition: opacity 0.5s ease-out;
 }
+
+::-webkit-scrollbar {
+  width: 10px; /* 垂直滚动条的宽度 */
+  height: 10px; /* 水平滚动条的高度 */
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff; /* 轨道背景颜色 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000000; /* 滑块颜色 */
+  border-radius: 10px; /* 滑块圆角 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* 悬停时的颜色 */
+}
