@@ -1,21 +1,23 @@
 <template>
   <div class="min-h-screen flex flex-col">
     <!-- 头部 -->
-    <header class="text-black py-2">
-      <div class="container px-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold">{{ $t("welcome") }}</h1>
-        <nav>
+    <header class="text-white py-2 fixed top-0 bg-slate-400 w-[100%] z-10">
+      <div class="px-4 lg:px-8 flex justify-between items-center">
+        <h1 class="sm: text-[12px] md:text-xl lg:text-2xl font-bold">
+          {{ $t("welcome") }}
+        </h1>
+        <nav class="sm: text-[12px] md:[14px] lg:text-base">
           <button
             @click="changeLanguage('en')"
-            class="mr-2 hover:text-blue-200 transition-colors"
-            :class="{ 'font-bold': currentLanguage === 'en' }"
+            class="mr-2 transition-colors"
+            :class="{ 'font-bold text-[#4649fc]': currentLanguage === 'en' }"
           >
             English
           </button>
           <button
             @click="changeLanguage('zh')"
-            class="hover:text-blue-200 transition-colors"
-            :class="{ 'font-bold': currentLanguage === 'zh' }"
+            class="transition-colors"
+            :class="{ 'font-bold text-[#4649fc]': currentLanguage === 'zh' }"
           >
             中文
           </button>
@@ -24,15 +26,83 @@
     </header>
 
     <!-- 内容区 -->
-    <main class="flex-grow">
+    <main class="flex-grow sm: mt-[34px] md:mt-[44px] lg:mt-[48px]">
       <!-- banner -->
-      <section class="w-full h-[600px] bg-theme-gradient"></section>
+      <section
+        class="w-full bg-theme-gradient h-[250px] md:h-[320px] lg:h-[500px] xl:h-[600px]"
+      >
+        <div
+          class="text-white flex flex-col items-center justify-center h-full"
+        >
+          <div
+            v-animate-on-scroll="{
+              animation: 'fadeInUp',
+              delay: '0.25s',
+              duration: `${1}s`,
+            }"
+          >
+            <p
+              class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl !leading-normal font-bold"
+              :class="{
+                'tracking-[1rem]': currentLanguage === 'zh',
+              }"
+            >
+              <span v-if="currentLanguage === 'zh'"
+                >智<font color="#ff0000">注</font>卓越</span
+              >
+              <span v-else="currentLanguage === 'en'"
+                ><font color="#ff0000">Molding </font>Excellence</span
+              >
+            </p>
+            <p
+              class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl !leading-normal font-bold"
+              :class="{
+                'tracking-[1rem]': currentLanguage === 'zh',
+              }"
+            >
+              <span v-if="currentLanguage === 'zh'"
+                ><font color="#ff0000">塑</font>造未来</span
+              >
+              <span v-else="currentLanguage === 'en'"
+                ><font color="#ff0000">Shaping </font>the Future</span
+              >
+            </p>
+          </div>
+          <p
+            v-if="currentLanguage === 'zh'"
+            class="text-xl lg:text-2xl leading-normal mt-4 lg:mt-8 lg:mb-4"
+            v-animate-on-scroll="{
+              animation: 'fadeInLeft',
+              delay: '0.4s',
+              duration: `${1}s`,
+            }"
+          >
+            宁波鼎发塑料机械有限公司
+          </p>
+          <p
+            class="text-sm lg:text-lg !leading-normal"
+            :class="{
+              'mt-8': currentLanguage === 'en',
+            }"
+            v-animate-on-scroll="{
+              animation: 'fadeInUp',
+              delay: '0.6s',
+              duration: `${1}s`,
+            }"
+          >
+            Ningbo Dingfa Plastic Machinery Co., Ltd.
+          </p>
+        </div>
+      </section>
+
       <!-- 海晟logo -->
       <section
         class="h-[90px] mt-[48px] logo-bg flex flex-col items-center justify-center"
         :style="{ background: `url(${imagePath}) no-repeat center` }"
       >
-        <h2 class="text-3xl mb-2" style="font-family: SimHei">{{ "海·晟" }}</h2>
+        <h2 class="text-3xl mb-2" style="font-family: SimHei">
+          {{ $t("haiSheng2") }}
+        </h2>
         <p class="text-gray-700 text-base md:text-lg">
           {{ "HAI SHENG" }}
         </p>
@@ -50,58 +120,104 @@
           class="pl-[20px] pr-[20px] md:pl-[60px] md:pr-[60px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <div
-            v-for="(service, index) in services"
-            :key="service.title + index"
+            v-for="(machine, index) in machines"
+            :key="machine.title + index"
             v-animate-on-scroll="{
               animation: 'fadeInUp',
               delay: '0.25s',
               duration: `${0.5 + index * 0.3}s`,
             }"
-            class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            class="machine-item bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            @mouseover="scaleImage('machine', index)"
+            @mouseout="resetImage('machine', index)"
           >
-            <div
-              class="imgg grid aspect-[16/9] bg-slate-700 animate-pulse"
-            ></div>
+            <div class="imgg grid aspect-[16/9] bg-slate-700 overflow-hidden">
+              <el-image
+                style="transition: transform 0.5s ease"
+                :class="{ 'scale-110': machineIndex == index }"
+                class="transform transition-transform duration-300 origin-center"
+                :src="machine.image"
+                :zoom-rate="1.2"
+                :max-scale="7"
+                :min-scale="0.2"
+                :preview-src-list="[machine.image]"
+                show-progress
+                :initial-index="0"
+                fit="cover"
+                :preview-teleported="true"
+              />
+            </div>
             <div class="p-3">
               <h3 class="text-xl font-semibold mb-2">
-                {{ $t(service.title) }}
+                {{ $t(machine.title) }}
               </h3>
-              <p class="text-gray-600">{{ $t(service.description) }}</p>
+              <p class="text-gray-600">{{ $t(machine.description) }}</p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- 配件 -->
-      <!-- <section class="mb-8">
+      <section class="mb-8 border-t-2 mt-4 pt-4">
+        <img
+          class="pl-[20px] pr-[20px] md:pl-[60px] md:pr-[60px]"
+          src="../assets/icon/wenzi.png"
+          alt=""
+        />
         <div
-          class="p-[60px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          class="pl-[20px] pr-[20px] md:pl-[60px] md:pr-[60px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <div
-            v-for="service in services"
-            :key="service.title"
-            v-animate-on-scroll="{ animation: 'fadeInUp', delay: '0.5s', duration: '1s' }"
-            class="bg-white h-[300px] lg:h-[340px] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            v-for="(part, index) in parts"
+            :key="part.title + index"
+            v-animate-on-scroll="{
+              animation: 'fadeInUp',
+              delay: '0.25s',
+              duration: `${0.5 + index * 0.3}s`,
+            }"
+            class="part-item bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            @mouseover="scaleImage('part', index)"
+            @mouseout="resetImage('part', index)"
           >
-            <h3 class="text-xl font-semibold mb-2">{{ $t(service.title) }}</h3>
-            <p class="text-gray-600">{{ $t(service.description) }}</p>
+            <div class="imgg grid aspect-[16/9] bg-slate-700 overflow-hidden">
+              <el-image
+                style="transition: transform 0.5s ease"
+                :class="{ 'scale-110': partIndex == index }"
+                class="transform transition-transform duration-300 origin-center"
+                :src="part.image"
+                :zoom-rate="1.2"
+                :max-scale="7"
+                :min-scale="0.2"
+                :preview-src-list="[part.image]"
+                show-progress
+                :initial-index="0"
+                fit="cover"
+                :preview-teleported="true"
+              />
+            </div>
+            <div class="p-3">
+              <h3 class="text-xl font-semibold mb-2">
+                {{ $t(part.title) }}
+              </h3>
+              <p class="text-gray-600">{{ $t(part.description) }}</p>
+            </div>
           </div>
         </div>
-      </section> -->
+      </section>
 
       <!-- 公司简介 -->
       <section
-        class="max-h-[450px] bg-theme-gradient flex flex-col items-center pt-[48px]"
+        class="max-h-[450px] bg-theme-gradient flex flex-col items-center pt-[48px] relative overflow-visible"
       >
         <p
-          class="text-base md:text-[32px] text-white font-bold"
+          class="max-w-[90%] text-2xl md:text-[32px] text-white font-bold text-center"
           v-animate-on-scroll="{
             animation: 'fadeInDown',
             delay: '0.25s',
             duration: `1s`,
           }"
         >
-          {{ "宁波鼎发塑料机械有限公司" }}
+          {{ $t("companyName") }}
         </p>
         <p
           class="text-base md:text-[16px] text-white mt-3"
@@ -111,7 +227,7 @@
             duration: `1s`,
           }"
         >
-          {{ "您值得信赖的注塑机制造商。" }}
+          {{ $t("introductionTip") }}
         </p>
         <div
           class="w-9 h-[5px] bg-[#fff] mt-3 rounded-full mb-2"
@@ -122,32 +238,132 @@
           }"
         ></div>
         <div
-          class="w-[80%] max-w-[960px] text-white text-[14px] leading-loose overflow-auto mb-8"
+          class="w-[85%] max-w-[1080px] text-white text-[14px] leading-loose overflow-auto mb-16"
           v-animate-on-scroll="{
             animation: 'fadeInUp',
             delay: '0.5s',
             duration: `1.25s`,
           }"
         >
-          <p class="indent-8">
-            宁波东钱湖旅游度假区鼎发塑料机械有限公司
-            (曾用名：宁波市江东鼎发塑料机械有限公司)
-            ，成立于2004年，位于浙江省宁波市，是一家专注于注塑机研发、生产、销售及售后服务的高新技术企业。自成立以来，我们始终秉持“创新引领、品质至上、服务为本”的经营理念，致力于为全球制造业客户提供高效、节能、智能化的注塑解决方案
-          </p>
-          <p class="indent-8">
-            我们深知不同行业客户对注塑机的多样化需求，因此公司精心打造了涵盖小型、中型和大型注塑机的丰富产品系列，锁模力范围从[X]吨到[X]吨不等，能够满足汽车零部件、家电外壳、电子元件、医疗器械、玩具等多种行业的注塑生产需求。无论是高精度的微小注塑件，还是大型复杂结构的产品，鼎发注塑机都能精准高效地完成生产任务。
-          </p>
-          <p class="indent-8">
-            我们深知售后服务对于客户的重要性，因此建立了完善的售后服务体系。公司在全国范围内设立了多个售后服务中心和维修网点，拥有一支专业的售后服务团队，他们经过严格的技术培训，具备丰富的现场维修和保养经验。无论客户遇到任何技术问题或设备故障，我们的售后服务人员都能在最短时间内响应并提供解决方案，确保客户的生产活动不受影响。同时，我们还为客户提供定期的设备巡检、保养维护、技术培训等增值服务，帮助客户更好地使用和管理注塑机，延长设备使用寿命，降低生产成本。
-          </p>
+          <p class="indent-8">{{ $t("introduction1") }}</p>
+          <p class="indent-8">{{ $t("introduction2") }}</p>
+          <p class="indent-8">{{ $t("introduction3") }}</p>
+        </div>
+        <!-- 统计 -->
+        <div
+          class="about-bottom w-[90%] mt-[-70px] absolute bottom-[-6rem] sm:bottom-[-3rem] lg:bottom-[-5rem]"
+          v-animate-on-scroll="{
+            animation: 'fadeInUp',
+            delay: '0.5s',
+            duration: `.5s`,
+          }"
+        >
+          <div
+            class="about-warp bg-white ml-6 mr-6 rounded shadow-xl flex flex-wrap justify-center"
+          >
+            <div
+              class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px] p-2"
+            >
+              <div class="about-num leading-none font-bold text-center">
+                <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
+                  >2004</span
+                >
+                <span class="text-sm lg:text-base align-top ml-1 lg:ml-2">{{
+                  $t("year")
+                }}</span>
+              </div>
+              <div
+                class="about-text text-sm lg:text-base mt-2 text-center"
+                :class="{ 'text-[10px]': locale == 'en' }"
+              >
+                {{ $t("aboutText1") }}
+              </div>
+            </div>
+            <div
+              class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px]"
+            >
+              <div class="about-num leading-none font-bold">
+                <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
+                  >20</span
+                >
+                <span class="text-sm lg:text-base align-top ml-1 lg:ml-2"
+                  >+</span
+                >
+              </div>
+              <div
+                class="about-text text-sm lg:text-base mt-2"
+                :class="{ 'text-[10px]': locale == 'en' }"
+              >
+                {{ $t("aboutText2") }}
+              </div>
+            </div>
+            <div
+              class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px]"
+            >
+              <div class="about-num leading-none font-bold">
+                <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
+                  >10</span
+                >
+                <span class="text-sm lg:text-base align-top ml-1 lg:ml-2"
+                  >+</span
+                >
+              </div>
+              <div
+                class="about-text text-sm lg:text-base mt-2"
+                :class="{ 'text-[10px]': locale == 'en' }"
+              >
+                {{ $t("aboutText3") }}
+              </div>
+            </div>
+            <div
+              class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px]"
+            >
+              <div class="about-num leading-none font-bold">
+                <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
+                  >10</span
+                >
+                <span class="text-sm lg:text-base align-top ml-1 lg:ml-2"
+                  >+</span
+                >
+              </div>
+              <div
+                class="about-text text-sm lg:text-base mt-2"
+                :class="{ 'text-[10px]': locale == 'en' }"
+              >
+                {{ $t("aboutText4") }}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- 合作案例 -->
-      <section class="pt-12">
-        <div class="cooperate h-[74px]"></div>
-        <div class="h-[560px] flex p-5">
-          <div class="flex-1">
+      <section class="cooperate-box pt-28 lg:pt-36">
+        <div class="cooperate h-[60px] lg:h-[94px] flex flex-col items-center">
+          <div
+            class="text-bg lg:text-[32px] font-bold"
+            style="color: rgba(0, 0, 0, 0.1)"
+            v-animate-on-scroll="{
+              animation: 'fadeInUp',
+              delay: '0.2s',
+              duration: `${0.5}s`,
+            }"
+          >
+            COOPERATION CASES
+          </div>
+          <div
+            class="text text-xl text-[#E60012] lg:text-3xl"
+            v-animate-on-scroll="{
+              animation: 'fadeInUp',
+              delay: '0.5s',
+              duration: `${0.8}s`,
+            }"
+          >
+            {{ $t("cooperateName") }}
+          </div>
+        </div>
+        <div class="h-[560px] lg:flex p-5">
+          <div class="flex-1 shadow-lg mb-4 lg:mb-0">
             <div
               v-for="(item, index) in cooperateList"
               :key="index"
@@ -161,10 +377,36 @@
               123
             </div>
           </div>
-          <div class="flex-1"></div>
+          <div
+            class="h-[300px] sm:mt-4 lg:mt-0 lg:h-auto lg:flex-1 lg:pl-4 flex"
+          >
+            <div class="left w-[50%] flex flex-col h-[100%]">
+              <div class="introduce1 h-[40%] bg-[#E60012]"></div>
+              <div class="contain flex-1"></div>
+            </div>
+            <div class="right w-[50%] flex flex-col h-[100%]">
+              <div class="contain flex-1"></div>
+              <div class="introduce2 h-[40%] bg-[#bbb]"></div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
+
+    <!-- 侧边联系方式 -->
+    <div
+      class="content-box fixed right-0 top-[320px] z-[100] text-white"
+      style="pointer-events: auto"
+    >
+      <ul>
+        <li class="phone">+86-0574-87933888</li>
+        <li class="email">651886930@qq.com</li>
+        <li class="qr">
+          <img src="../assets/icon/qr.png" alt="" />
+        </li>
+        <li class="back-top" @click="scrollToTop()"></li>
+      </ul>
+    </div>
 
     <!-- 底部 -->
     <footer
@@ -175,8 +417,8 @@
         class="container mx-auto px-4 text-center text-[12px] text-[#ababab]"
       >
         <span class="">
-          Copyright © 2023-2024 宁波鼎发塑料机械有限公司 版权所有 |
-          企业官网：http://www.dingfasuji.com | 备案号：</span
+          {{ $t("copyright") }} | {{ $t("web") }}：http://www.dingfasuji.com |
+          {{ $t("recordNumber") }}：</span
         >
         <a target="_blank" href="https://beian.miit.gov.cn/" rel="nofollow"
           >浙ICP备2025150334号</a
@@ -194,6 +436,8 @@ import { useI18n } from "vue-i18n";
 const { locale, t } = useI18n();
 
 // 当前语言
+// 设置默认语言为中文
+locale.value = "zh";
 const currentLanguage = computed(() => locale.value);
 
 const imagePath = new URL("../assets/icon/top.png", import.meta.url).href;
@@ -210,21 +454,111 @@ const form = ref({
   message: "",
 });
 
-// 提交表单
-const handleSubmit = () => {
-  alert(t("submitSuccess"));
-  console.log("Form Data:", form.value);
-  form.value = { name: "", email: "", message: "" }; // 清空表单
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 };
 
-// 服务列表
-const services = [
-  { title: "service1", description: "service1Description" },
-  { title: "service2", description: "service2Description" },
-  { title: "service3", description: "service3Description" },
-  { title: "service1", description: "service1Description" },
-  { title: "service2", description: "service2Description" },
-  { title: "service3", description: "service3Description" },
+const scaleImage = (type = "machine", index) => {
+  if (type === "machine") {
+    machineIndex.value = index;
+  } else if (type === "part") {
+    partIndex.value = index;
+  }
+};
+const resetImage = (type = "machine", index) => {
+  if (type === "machine") {
+    machineIndex.value = -1;
+  } else if (type === "part") {
+    partIndex.value = -1;
+  }
+};
+
+let machineIndex = ref(0);
+// 成品机列表
+const machines = [
+  {
+    title: "service1",
+    description: "service1Description",
+    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+  },
+  {
+    title: "service2",
+    description: "service2Description",
+    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+  },
+  {
+    title: "service3",
+    description: "service3Description",
+    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+  },
+  {
+    title: "service1",
+    description: "service1Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
+  {
+    title: "service2",
+    description: "service2Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
+  {
+    title: "service3",
+    description: "service3Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
+];
+
+let partIndex = ref(0);
+// 成品机列表
+const parts = [
+  {
+    title: "service1",
+    description: "service1Description",
+    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+  },
+  {
+    title: "service2",
+    description: "service2Description",
+    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+  },
+  {
+    title: "service3",
+    description: "service3Description",
+    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+  },
+  {
+    title: "service1",
+    description: "service1Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
+  {
+    title: "service2",
+    description: "service2Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
+  {
+    title: "service3",
+    description: "service3Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
+  {
+    title: "service1",
+    description: "service1Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
+  {
+    title: "service2",
+    description: "service2Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
+  {
+    title: "service3",
+    description: "service3Description",
+    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+  },
 ];
 
 const activeCooperateIndex = ref(0);
@@ -252,5 +586,90 @@ const chooseCooperateItem = (index) => {
   margin-left: -20px;
   left: 50%;
   border-radius: 3px;
+}
+.about-bottom {
+  .about-item {
+  }
+  .about-text {
+    /* 文字居中 字母换行 */
+    text-align: center;
+    word-break: break-all;
+  }
+}
+.content-box {
+  ul {
+    width: 200px;
+    li {
+      background-color: #e60012;
+      width: 200px;
+      height: 40px;
+      color: #fff;
+      margin-bottom: 3px;
+      transition: all 0.5s ease;
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 44px;
+      border-radius: 3px;
+      position: relative;
+      z-index: 99;
+      right: -160px;
+      text-indent: 44px;
+    }
+    li:nth-child(1) {
+      background: #489ef5 url(../assets/icon/fixCont.png) no-repeat 0 -48px;
+    }
+    li:nth-child(2) {
+      background: #70c969 url(../assets/icon/fixCont.png) no-repeat 0 -98px;
+    }
+    li:nth-child(3) {
+      background: #f8e148 url(../assets/icon/fixCont.png) no-repeat 0 -144px;
+    }
+    li:nth-child(4) {
+      background: #3a3a3a url(../assets/icon/fixCont.png) no-repeat 0 0px;
+    }
+    li:hover:not(:nth-child(4)) {
+      right: 0;
+    }
+    li:nth-child(3):hover {
+      right: -20px;
+      height: 132px;
+    }
+  }
+}
+.cooperate-box {
+  .introduce1 {
+    position: relative; /* 确保绝对定位元素相对于此容器 */
+    overflow: visible; /* 确保超出部分可以显示 */
+  }
+  .introduce1::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-top: 1rem solid #e60012;
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .introduce2 {
+    position: relative; /* 确保绝对定位元素相对于此容器 */
+    overflow: visible; /* 确保超出部分可以显示 */
+  }
+  .introduce2::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-bottom: 1rem solid #bbb;
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 </style>
