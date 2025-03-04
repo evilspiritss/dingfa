@@ -145,6 +145,7 @@
                 :initial-index="0"
                 fit="cover"
                 :preview-teleported="true"
+                lazy
               />
             </div>
             <div class="p-3">
@@ -193,6 +194,7 @@
                 :initial-index="0"
                 fit="cover"
                 :preview-teleported="true"
+                lazy
               />
             </div>
             <div class="p-3">
