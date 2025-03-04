@@ -50,7 +50,7 @@
               <span v-if="currentLanguage === 'zh'"
                 >智<font color="#ff0000">注</font>卓越</span
               >
-              <span v-else="currentLanguage === 'en'"
+              <span v-else-if="currentLanguage === 'en'"
                 ><font color="#ff0000">Molding </font>Excellence</span
               >
             </p>
@@ -63,7 +63,7 @@
               <span v-if="currentLanguage === 'zh'"
                 ><font color="#ff0000">塑</font>造未来</span
               >
-              <span v-else="currentLanguage === 'en'"
+              <span v-else-if="currentLanguage === 'en'"
                 ><font color="#ff0000">Shaping </font>the Future</span
               >
             </p>
@@ -124,8 +124,8 @@
             :key="machine.title + index"
             v-animate-on-scroll="{
               animation: 'fadeInUp',
-              delay: '0.25s',
-              duration: `${0.5 + index * 0.3}s`,
+              delay: '0.2s',
+              duration: `${0.5 + index * 0.2}s`,
             }"
             class="machine-item bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
             @mouseover="scaleImage('machine', index)"
@@ -173,8 +173,8 @@
             :key="part.title + index"
             v-animate-on-scroll="{
               animation: 'fadeInUp',
-              delay: '0.25s',
-              duration: `${0.5 + index * 0.3}s`,
+              delay: '0.2s',
+              duration: `${0.5 + index * 0.2}s`,
             }"
             class="part-item bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
             @mouseover="scaleImage('part', index)"
@@ -276,7 +276,7 @@
               </div>
               <div
                 class="about-text text-sm lg:text-base mt-2 text-center"
-                :class="{ 'text-[10px]': locale == 'en' }"
+                :class="{ '!text-[10px]': locale == 'en' }"
               >
                 {{ $t("aboutText1") }}
               </div>
@@ -294,7 +294,7 @@
               </div>
               <div
                 class="about-text text-sm lg:text-base mt-2"
-                :class="{ 'text-[10px]': locale == 'en' }"
+                :class="{ '!text-[10px]': locale == 'en' }"
               >
                 {{ $t("aboutText2") }}
               </div>
@@ -312,7 +312,7 @@
               </div>
               <div
                 class="about-text text-sm lg:text-base mt-2"
-                :class="{ 'text-[10px]': locale == 'en' }"
+                :class="{ '!text-[10px]': locale == 'en' }"
               >
                 {{ $t("aboutText3") }}
               </div>
@@ -330,7 +330,7 @@
               </div>
               <div
                 class="about-text text-sm lg:text-base mt-2"
-                :class="{ 'text-[10px]': locale == 'en' }"
+                :class="{ '!text-[10px]': locale == 'en' }"
               >
                 {{ $t("aboutText4") }}
               </div>
@@ -341,7 +341,7 @@
 
       <!-- 合作案例 -->
       <section class="cooperate-box pt-28 lg:pt-36">
-        <div class="cooperate h-[60px] lg:h-[94px] flex flex-col items-center">
+        <!-- <div class="cooperate h-[60px] lg:h-[94px] flex flex-col items-center">
           <div
             class="text-bg lg:text-[32px] font-bold"
             style="color: rgba(0, 0, 0, 0.1)"
@@ -391,20 +391,21 @@
               <div class="introduce2 h-[40%] bg-[#bbb]"></div>
             </div>
           </div>
-        </div>
+        </div> -->
       </section>
     </main>
 
     <!-- 侧边联系方式 -->
     <div
-      class="content-box fixed right-0 top-[320px] z-[100] text-white"
-      style="pointer-events: auto"
+      class="content-box fixed right-0 top-[320px] !z-[1000] text-white"
+      style="pointer-events: auto; position: fixed; right: 0; top: 320px;"
     >
       <ul>
-        <li class="phone">+86-0574-87933888</li>
+        <li class="phone">+86-13105521811</li>
         <li class="email">651886930@qq.com</li>
         <li class="qr">
-          <img src="../assets/icon/qr.png" alt="" />
+          <div class="text-black">{{ $t('weixinQR') }}</div>
+          <img class="ml-[45px] w-[100px] h-[100px]" src="../assets/icon/boss_qr.png" alt="" />
         </li>
         <li class="back-top" @click="scrollToTop()"></li>
       </ul>
@@ -484,32 +485,32 @@ const machines = [
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine1.webp", import.meta.url).href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine2.webp", import.meta.url).href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine3.webp", import.meta.url).href,
   },
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine4.webp", import.meta.url).href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine5.webp", import.meta.url).href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine1.webp", import.meta.url).href,
   },
 ];
 
@@ -519,47 +520,47 @@ const parts = [
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/11.jpg", import.meta.url).href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/22.jpg", import.meta.url).href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/machine/11.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/33.jpg", import.meta.url).href,
   },
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/44.jpg", import.meta.url).href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/55.jpg", import.meta.url).href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/66.jpg", import.meta.url).href,
   },
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/77.jpg", import.meta.url).href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/88.jpg", import.meta.url).href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/machine/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/99.jpg", import.meta.url).href,
   },
 ];
 
@@ -618,23 +619,23 @@ const chooseCooperateItem = (index) => {
       text-indent: 44px;
     }
     li:nth-child(1) {
-      background: #489ef5 url(../assets/icon/fixCont.png) no-repeat 0 -48px;
+      background: #489ef5 url(../assets/icon/fixCont1.png) no-repeat 0 -48px;
     }
     li:nth-child(2) {
-      background: #70c969 url(../assets/icon/fixCont.png) no-repeat 0 -98px;
+      background: #70c969 url(../assets/icon/fixCont1.png) no-repeat 0 -98px;
     }
     li:nth-child(3) {
-      background: #f8e148 url(../assets/icon/fixCont.png) no-repeat 0 -144px;
+      background: #f8e148 url(../assets/icon/fixCont1.png) no-repeat 0 -144px;
     }
     li:nth-child(4) {
-      background: #3a3a3a url(../assets/icon/fixCont.png) no-repeat 0 0px;
+      background: #3a3a3a url(../assets/icon/fixCont1.png) no-repeat 0 0px;
     }
     li:hover:not(:nth-child(4)) {
       right: 0;
     }
     li:nth-child(3):hover {
       right: -20px;
-      height: 132px;
+      height: 156px;
     }
   }
 }
