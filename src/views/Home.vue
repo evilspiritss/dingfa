@@ -542,7 +542,7 @@ const machines = [
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/machine/machine1.webp", import.meta.url)
+    image: new URL("../assets/images/machine/machine6.webp", import.meta.url)
       .href,
   },
 ];
@@ -553,47 +553,62 @@ const parts = [
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/product/11.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product1.webp", import.meta.url).href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/product/22.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product2.webp", import.meta.url).href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/product/33.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product3.webp", import.meta.url).href,
   },
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/product/44.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product4.webp", import.meta.url).href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/product/55.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product5.webp", import.meta.url).href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/product/66.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product6.webp", import.meta.url).href,
   },
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/product/77.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product7.webp", import.meta.url).href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/product/88.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product8.webp", import.meta.url).href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/product/99.jpg", import.meta.url).href,
+    image: new URL("../assets/images/product/product9.webp", import.meta.url).href,
+  },
+  {
+    title: "service1",
+    description: "service1Description",
+    image: new URL("../assets/images/product/product10.webp", import.meta.url).href,
+  },
+  {
+    title: "service2",
+    description: "service2Description",
+    image: new URL("../assets/images/product/product11.webp", import.meta.url).href,
+  },
+  {
+    title: "service3",
+    description: "service3Description",
+    image: new URL("../assets/images/product/product12.webp", import.meta.url).href,
   },
 ];
 
