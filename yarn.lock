@@ -254,7 +254,7 @@
   dependencies:
     "@vue/shared" "3.5.13"
 
-"@vue/runtime-core@3.5.13":
+"@vue/runtime-core@^3.5.13", "@vue/runtime-core@3.5.13":
   version "3.5.13"
   resolved "http://npm.dev.bluexii.cn/@vue%2fruntime-core/-/runtime-core-3.5.13.tgz"
   integrity sha512-Fj4YRQ3Az0WTZw1sFe+QDb0aXCerigEpw418pw1HBUKFtnQHWzwojaukAs2X/c9DQz4MQ4bsXTGlcpGxU/RCIw==
@@ -1248,6 +1248,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "http://npm.dev.bluexii.cn/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+swiper@^11.2.5:
+  version "11.2.5"
+  resolved "http://npm.dev.bluexii.cn/swiper/-/swiper-11.2.5.tgz"
+  integrity sha512-nG0kbIyBfeE2BPFt9nPUX03qUBF75o6+enzjIT/DfCmbh8ORlwhc4eZz1+4H/yseAgb3H+OoEYzmb64i0tYNnQ==
 
 tailwindcss@^3.4.17:
   version "3.4.17"

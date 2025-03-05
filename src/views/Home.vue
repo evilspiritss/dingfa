@@ -28,71 +28,88 @@
     <!-- 内容区 -->
     <main class="flex-grow sm: mt-[34px] md:mt-[44px] lg:mt-[48px]">
       <!-- banner -->
-      <section
-        class="w-full bg-theme-gradient h-[250px] md:h-[320px] lg:h-[500px] xl:h-[600px]"
-      >
-        <div
-          class="text-white flex flex-col items-center justify-center h-full"
+      <section>
+        <swiper
+          class="w-full bg-theme-gradient h-[250px] md:h-[320px] lg:h-[500px] xl:h-[600px]"
+          :modules="[Pagination, Navigation]"
+          :slides-per-view="1"
+          :space-between="50"
+          :pagination="{ clickable: true }"
+          :navigation="false"
+          :loop="true"
         >
-          <div
-            v-animate-on-scroll="{
-              animation: 'fadeInUp',
-              delay: '0.25s',
-              duration: `${1}s`,
-            }"
-          >
-            <p
-              class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl !leading-normal font-bold"
-              :class="{
-                'tracking-[1rem]': currentLanguage === 'zh',
-              }"
+          <swiper-slide>
+            <div
+              class="text-white flex flex-col items-center justify-center h-full"
             >
-              <span v-if="currentLanguage === 'zh'"
-                >智<font color="#ff0000">注</font>卓越</span
+              <div
+                v-animate-on-scroll="{
+                  animation: 'fadeInUp',
+                  delay: '0.25s',
+                  duration: `${1}s`,
+                }"
               >
-              <span v-else-if="currentLanguage === 'en'"
-                ><font color="#ff0000">Molding </font>Excellence</span
+                <p
+                  class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl !leading-normal font-bold"
+                  :class="{
+                    'tracking-[1rem]': currentLanguage === 'zh',
+                  }"
+                >
+                  <span v-if="currentLanguage === 'zh'"
+                    >智<font color="#ff0000">注</font>卓越</span
+                  >
+                  <span v-else-if="currentLanguage === 'en'"
+                    ><font color="#ff0000">Molding </font>Excellence</span
+                  >
+                </p>
+                <p
+                  class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl !leading-normal font-bold"
+                  :class="{
+                    'tracking-[1rem]': currentLanguage === 'zh',
+                  }"
+                >
+                  <span v-if="currentLanguage === 'zh'"
+                    ><font color="#ff0000">塑</font>造未来</span
+                  >
+                  <span v-else-if="currentLanguage === 'en'"
+                    ><font color="#ff0000">Shaping </font>the Future</span
+                  >
+                </p>
+              </div>
+              <p
+                v-if="currentLanguage === 'zh'"
+                class="text-xl lg:text-2xl leading-normal mt-4 lg:mt-8 lg:mb-4"
+                v-animate-on-scroll="{
+                  animation: 'fadeInLeft',
+                  delay: '0.4s',
+                  duration: `${1}s`,
+                }"
               >
-            </p>
-            <p
-              class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl !leading-normal font-bold"
-              :class="{
-                'tracking-[1rem]': currentLanguage === 'zh',
-              }"
-            >
-              <span v-if="currentLanguage === 'zh'"
-                ><font color="#ff0000">塑</font>造未来</span
+                宁波鼎发塑料机械有限公司
+              </p>
+              <p
+                class="text-sm lg:text-lg !leading-normal"
+                :class="{
+                  'mt-8': currentLanguage === 'en',
+                }"
+                v-animate-on-scroll="{
+                  animation: 'fadeInUp',
+                  delay: '0.6s',
+                  duration: `${1}s`,
+                }"
               >
-              <span v-else-if="currentLanguage === 'en'"
-                ><font color="#ff0000">Shaping </font>the Future</span
-              >
-            </p>
-          </div>
-          <p
-            v-if="currentLanguage === 'zh'"
-            class="text-xl lg:text-2xl leading-normal mt-4 lg:mt-8 lg:mb-4"
-            v-animate-on-scroll="{
-              animation: 'fadeInLeft',
-              delay: '0.4s',
-              duration: `${1}s`,
-            }"
-          >
-            宁波鼎发塑料机械有限公司
-          </p>
-          <p
-            class="text-sm lg:text-lg !leading-normal"
-            :class="{
-              'mt-8': currentLanguage === 'en',
-            }"
-            v-animate-on-scroll="{
-              animation: 'fadeInUp',
-              delay: '0.6s',
-              duration: `${1}s`,
-            }"
-          >
-            Ningbo Dingfa Plastic Machinery Co., Ltd.
-          </p>
-        </div>
+                Ningbo Dingfa Plastic Machinery Co., Ltd.
+              </p>
+            </div>
+          </swiper-slide>
+          <swiper-slide v-for="(item, index) in bannerList" :key="index">
+            <ImageViewer
+              style="transition: transform 0.5s ease"
+              class="transform transition-transform duration-300 origin-center w-full h-full object-cover"
+              :images="[item.image]"
+            />
+          </swiper-slide>
+        </swiper>
       </section>
 
       <!-- 海晟logo -->
@@ -186,10 +203,10 @@
             @mouseout="resetImage('part', index)"
           >
             <div class="imgg grid aspect-[16/9] bg-slate-700 overflow-hidden">
-              <ImageViewer 
+              <ImageViewer
                 style="transition: transform 0.5s ease"
                 class="transform transition-transform duration-300 origin-center"
-                :images="[part.image]" 
+                :images="[part.image]"
               />
               <!-- <el-image
                 style="transition: transform 0.5s ease"
@@ -277,9 +294,10 @@
               class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px] p-2"
               v-for="(item, index) in aboutList"
               :key="index"
-              >
+            >
               <div class="about-num leading-none font-bold text-center">
-                <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
+                <span
+                  class="text-2xl lg:text-[42px] align-top text-[#E60012]"
                   >{{ item.value }}</span
                 >
                 <span class="text-sm lg:text-base align-top ml-1 lg:ml-2">{{
@@ -356,16 +374,16 @@
     <!-- 侧边联系方式 -->
     <div
       class="content-box fixed right-0 top-[320px] !z-[1000] text-white"
-      style="pointer-events: auto; position: fixed; right: 0; top: 320px;"
+      style="pointer-events: auto; position: fixed; right: 0; top: 320px"
     >
       <ul>
         <li class="phone">+86-13105521811</li>
         <li class="email">651886930@qq.com</li>
         <li class="qr">
-          <div class="text-black">{{ $t('weixinQR') }}</div>
-          <ImageViewer 
+          <div class="text-black">{{ $t("weixinQR") }}</div>
+          <ImageViewer
             class="ml-[45px] w-[100px] h-[100px]"
-            :images="[qrImg]" 
+            :images="[qrImg]"
           />
           <!-- <img class="ml-[45px] w-[100px] h-[100px]" src="../assets/icon/boss_qr.png" alt="" /> -->
         </li>
@@ -397,6 +415,13 @@
 import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
 
+// swiper
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
 // 使用 vue-i18n
 const { locale, t } = useI18n();
 
@@ -412,7 +437,7 @@ const changeLanguage = (lang) => {
   locale.value = lang;
 };
 
-const qrImg = new URL("../assets/icon/boss_qr.png", import.meta.url).href
+const qrImg = new URL("../assets/icon/boss_qr.png", import.meta.url).href;
 
 // 表单数据
 const form = ref({
@@ -446,6 +471,17 @@ const resetImage = (type = "machine", index) => {
   }
 };
 
+const bannerList = [
+  {
+    title: "轮播1",
+    image: new URL("../assets/images/banner/bg2.jpg", import.meta.url).href,
+  },
+  {
+    title: "轮播2",
+    image: new URL("../assets/images/banner/b3.jpg", import.meta.url).href,
+  },
+];
+
 // aboutList
 const aboutList = [
   {
@@ -468,8 +504,7 @@ const aboutList = [
     unitNormal: "+",
     text: "aboutText4",
   },
-]
-
+];
 
 let machineIndex = ref(0);
 // 成品机列表
@@ -477,32 +512,38 @@ const machines = [
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/machine/machine1.webp", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine1.webp", import.meta.url)
+      .href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/machine/machine2.webp", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine2.webp", import.meta.url)
+      .href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/machine/machine3.webp", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine3.webp", import.meta.url)
+      .href,
   },
   {
     title: "service1",
     description: "service1Description",
-    image: new URL("../assets/images/machine/machine4.webp", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine4.webp", import.meta.url)
+      .href,
   },
   {
     title: "service2",
     description: "service2Description",
-    image: new URL("../assets/images/machine/machine5.webp", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine5.webp", import.meta.url)
+      .href,
   },
   {
     title: "service3",
     description: "service3Description",
-    image: new URL("../assets/images/machine/machine1.webp", import.meta.url).href,
+    image: new URL("../assets/images/machine/machine1.webp", import.meta.url)
+      .href,
   },
 ];
 
@@ -617,7 +658,7 @@ const chooseCooperateItem = (index) => {
       background: #f30f5b url(../assets/icon/fixCont1.png) no-repeat 0 -98px;
     }
     li:nth-child(3) {
-      background: #23D96E url(../assets/icon/fixCont1.png) no-repeat 0 -144px;
+      background: #23d96e url(../assets/icon/fixCont1.png) no-repeat 0 -144px;
     }
     li:nth-child(4) {
       background: #3a3a3a url(../assets/icon/fixCont1.png) no-repeat 0 0px;
@@ -666,5 +707,8 @@ const chooseCooperateItem = (index) => {
     left: 50%;
     transform: translateX(-50%);
   }
+}
+:deep(.el-carousel__container) {
+  height: 100% !important;
 }
 </style>
