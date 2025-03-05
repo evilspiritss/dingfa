@@ -365,7 +365,7 @@
           <div class="text-black">{{ $t('weixinQR') }}</div>
           <ImageViewer 
             class="ml-[45px] w-[100px] h-[100px]"
-            :images="['src/assets/icon/boss_qr.png']"
+            :images="[qrImg]" 
           />
           <!-- <img class="ml-[45px] w-[100px] h-[100px]" src="../assets/icon/boss_qr.png" alt="" /> -->
         </li>
@@ -396,7 +396,6 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { useTransition } from '@vueuse/core'
 
 // 使用 vue-i18n
 const { locale, t } = useI18n();
@@ -412,6 +411,8 @@ const imagePath = new URL("../assets/icon/top.png", import.meta.url).href;
 const changeLanguage = (lang) => {
   locale.value = lang;
 };
+
+const qrImg = new URL("../assets/icon/boss_qr.png", import.meta.url).href
 
 // 表单数据
 const form = ref({
