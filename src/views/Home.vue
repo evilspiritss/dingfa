@@ -614,7 +614,7 @@ const chooseCooperateItem = (index) => {
       background: #489ef5 url(../assets/icon/fixCont1.png) no-repeat 0 -48px;
     }
     li:nth-child(2) {
-      background: #fcee76 url(../assets/icon/fixCont1.png) no-repeat 0 -98px;
+      background: #f30f5b url(../assets/icon/fixCont1.png) no-repeat 0 -98px;
     }
     li:nth-child(3) {
       background: #23D96E url(../assets/icon/fixCont1.png) no-repeat 0 -144px;
