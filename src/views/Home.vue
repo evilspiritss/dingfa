@@ -128,11 +128,16 @@
               duration: `${0.5 + index * 0.2}s`,
             }"
             class="machine-item bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            @mouseover="scaleImage('machine', index)"
-            @mouseout="resetImage('machine', index)"
+            @mouseover="scaleImage('machine', index, $event)"
+            @mouseout="resetImage('machine', index, $event)"
           >
             <div class="imgg grid aspect-[16/9] bg-slate-700 overflow-hidden">
-              <el-image
+              <ImageViewer
+                style="transition: transform 0.5s ease"
+                class="transform transition-transform duration-300 origin-center"
+                :images="[machine.image]"
+              />
+              <!-- <el-image
                 style="transition: transform 0.5s ease"
                 :class="{ 'scale-110': machineIndex == index }"
                 class="transform transition-transform duration-300 origin-center"
@@ -146,7 +151,7 @@
                 fit="cover"
                 :preview-teleported="true"
                 lazy
-              />
+              /> -->
             </div>
             <div class="p-3">
               <h3 class="text-xl font-semibold mb-2">
@@ -177,11 +182,16 @@
               duration: `${0.5 + index * 0.2}s`,
             }"
             class="part-item bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            @mouseover="scaleImage('part', index)"
+            @mouseover="scaleImage('part', index, $event)"
             @mouseout="resetImage('part', index)"
           >
             <div class="imgg grid aspect-[16/9] bg-slate-700 overflow-hidden">
-              <el-image
+              <ImageViewer 
+                style="transition: transform 0.5s ease"
+                class="transform transition-transform duration-300 origin-center"
+                :images="[part.image]" 
+              />
+              <!-- <el-image
                 style="transition: transform 0.5s ease"
                 :class="{ 'scale-110': partIndex == index }"
                 class="transform transition-transform duration-300 origin-center"
@@ -195,7 +205,7 @@
                 fit="cover"
                 :preview-teleported="true"
                 lazy
-              />
+              /> -->
             </div>
             <div class="p-3">
               <h3 class="text-xl font-semibold mb-2">
@@ -265,74 +275,22 @@
           >
             <div
               class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px] p-2"
-            >
+              v-for="(item, index) in aboutList"
+              :key="index"
+              >
               <div class="about-num leading-none font-bold text-center">
                 <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
-                  >2004</span
+                  >{{ item.value }}</span
                 >
                 <span class="text-sm lg:text-base align-top ml-1 lg:ml-2">{{
-                  $t("year")
+                  item.unit ? $t(item.unit) : item.unitNormal
                 }}</span>
               </div>
               <div
                 class="about-text text-sm lg:text-base mt-2 text-center"
                 :class="{ '!text-[10px]': locale == 'en' }"
               >
-                {{ $t("aboutText1") }}
-              </div>
-            </div>
-            <div
-              class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px]"
-            >
-              <div class="about-num leading-none font-bold">
-                <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
-                  >20</span
-                >
-                <span class="text-sm lg:text-base align-top ml-1 lg:ml-2"
-                  >+</span
-                >
-              </div>
-              <div
-                class="about-text text-sm lg:text-base mt-2"
-                :class="{ '!text-[10px]': locale == 'en' }"
-              >
-                {{ $t("aboutText2") }}
-              </div>
-            </div>
-            <div
-              class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px]"
-            >
-              <div class="about-num leading-none font-bold">
-                <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
-                  >10</span
-                >
-                <span class="text-sm lg:text-base align-top ml-1 lg:ml-2"
-                  >+</span
-                >
-              </div>
-              <div
-                class="about-text text-sm lg:text-base mt-2"
-                :class="{ '!text-[10px]': locale == 'en' }"
-              >
-                {{ $t("aboutText3") }}
-              </div>
-            </div>
-            <div
-              class="about-item flex-1 flex justify-center items-center flex-col min-w-[120px] h-[72px] lg:h-[120px]"
-            >
-              <div class="about-num leading-none font-bold">
-                <span class="text-2xl lg:text-[42px] align-top text-[#E60012]"
-                  >10</span
-                >
-                <span class="text-sm lg:text-base align-top ml-1 lg:ml-2"
-                  >+</span
-                >
-              </div>
-              <div
-                class="about-text text-sm lg:text-base mt-2"
-                :class="{ '!text-[10px]': locale == 'en' }"
-              >
-                {{ $t("aboutText4") }}
+                {{ $t(item.text) }}
               </div>
             </div>
           </div>
@@ -405,7 +363,11 @@
         <li class="email">651886930@qq.com</li>
         <li class="qr">
           <div class="text-black">{{ $t('weixinQR') }}</div>
-          <img class="ml-[45px] w-[100px] h-[100px]" src="../assets/icon/boss_qr.png" alt="" />
+          <ImageViewer 
+            class="ml-[45px] w-[100px] h-[100px]"
+            :images="['src/assets/icon/boss_qr.png']"
+          />
+          <!-- <img class="ml-[45px] w-[100px] h-[100px]" src="../assets/icon/boss_qr.png" alt="" /> -->
         </li>
         <li class="back-top" @click="scrollToTop()"></li>
       </ul>
@@ -419,7 +381,7 @@
       <div
         class="container mx-auto px-4 text-center text-[12px] text-[#ababab]"
       >
-        <span class="">
+        <span>
           {{ $t("copyright") }} | {{ $t("web") }}：http://www.dingfasuji.com |
           {{ $t("recordNumber") }}：</span
         >
@@ -434,6 +396,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
+import { useTransition } from '@vueuse/core'
 
 // 使用 vue-i18n
 const { locale, t } = useI18n();
@@ -464,7 +427,10 @@ const scrollToTop = () => {
   });
 };
 
-const scaleImage = (type = "machine", index) => {
+const scaleImage = (type = "machine", index, event) => {
+  if (event) {
+    event.stopPropagation();
+  }
   if (type === "machine") {
     machineIndex.value = index;
   } else if (type === "part") {
@@ -478,6 +444,31 @@ const resetImage = (type = "machine", index) => {
     partIndex.value = -1;
   }
 };
+
+// aboutList
+const aboutList = [
+  {
+    value: "2004",
+    unit: "year",
+    text: "aboutText1",
+  },
+  {
+    value: "20",
+    unitNormal: "+",
+    text: "aboutText2",
+  },
+  {
+    value: "10",
+    unitNormal: "+",
+    text: "aboutText3",
+  },
+  {
+    value: "10",
+    unitNormal: "+",
+    text: "aboutText4",
+  },
+]
+
 
 let machineIndex = ref(0);
 // 成品机列表
@@ -622,10 +613,10 @@ const chooseCooperateItem = (index) => {
       background: #489ef5 url(../assets/icon/fixCont1.png) no-repeat 0 -48px;
     }
     li:nth-child(2) {
-      background: #70c969 url(../assets/icon/fixCont1.png) no-repeat 0 -98px;
+      background: #fcee76 url(../assets/icon/fixCont1.png) no-repeat 0 -98px;
     }
     li:nth-child(3) {
-      background: #f8e148 url(../assets/icon/fixCont1.png) no-repeat 0 -144px;
+      background: #23D96E url(../assets/icon/fixCont1.png) no-repeat 0 -144px;
     }
     li:nth-child(4) {
       background: #3a3a3a url(../assets/icon/fixCont1.png) no-repeat 0 0px;

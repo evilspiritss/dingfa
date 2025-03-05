@@ -185,6 +185,11 @@
   resolved "http://npm.dev.bluexii.cn/@types%2flodash/-/lodash-4.17.16.tgz"
   integrity sha512-HX7Em5NYQAXKW+1T+FiuG27NGwzJfCX3s1GjOa7ujxZa52kjJLOr4FUxT+giF6Tgxv1e+/czV/iTtBw27WTU9g==
 
+"@types/viewerjs@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.npmmirror.com/@types/viewerjs/-/viewerjs-0.7.2.tgz"
+  integrity sha512-KYQo07dOOQ54vEIpQN19tEcDXLtEi/mNWCB7oFLzAznmvJ9Py7x6Ylp4qLexwTp4KJoM3KF6/D2bQEVyNvS7ug==
+
 "@types/web-bluetooth@^0.0.16":
   version "0.0.16"
   resolved "http://npm.dev.bluexii.cn/@types%2fweb-bluetooth/-/web-bluetooth-0.0.16.tgz"
@@ -1390,6 +1395,11 @@ util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "http://npm.dev.bluexii.cn/util-deprecate/-/util-deprecate-1.0.2.tgz"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+viewerjs@^1.11.7:
+  version "1.11.7"
+  resolved "https://registry.npmmirror.com/viewerjs/-/viewerjs-1.11.7.tgz"
+  integrity sha512-0JuVqOmL5v1jmEAlG5EBDR3XquxY8DWFQbFMprOXgaBB0F7Q/X9xWdEaQc59D8xzwkdUgXEMSSknTpriq95igg==
 
 vite-plugin-compression@^0.5.1:
   version "0.5.1"
